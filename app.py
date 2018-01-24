@@ -6,6 +6,9 @@ from flask import Flask
 # create the application object
 app = Flask(__name__)
 
+# error handling
+app.config['DEBUG'] = True
+
 # use decorators to link the function to a url
 @app.route("/")
 @app.route("/hello")
@@ -36,6 +39,13 @@ def float_type(value):
 def path_type(value):
     print(value)
     return "correct"
+
+@app.route("/name/<name>")
+def index(name):
+    if name.lower() == 'luca':
+        return "Hello {}!".format(name.capitalize()), 200
+    else:
+        return "Not Found", 404
 
 
 # start the development server using the run() method
